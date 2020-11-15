@@ -1,0 +1,19 @@
+{
+  "name": "girlFriendBlog",
+  "version": "0.0.1",
+  "description": "It is a personal blog",
+  "main": "index.js",
+  "authors": {
+    "name": "MrTan",
+    "email": "freemrtan@gmail.com"
+  },
+  "repository": "git@github.com:ggggxiaolong/girlFriendBlog.git",
+  "scripts": {
+    "start": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
