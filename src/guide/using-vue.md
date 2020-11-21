@@ -1,9 +1,71 @@
-# Using Vue in Markdown
+---
+title: Using Vue in Markdown
+date: 2019-08-09
+sidebar: 'auto'
+categories:
+ - Markdown
+tags:
+ - Vue
+---
 
-## Browser API Access Restrictions
+## 单页面监听localStorage变动
 
-Because VuePress applications are server-rendered in Node.js when generating static builds, any Vue usage must conform to the [universal code requirements](https://ssr.vuejs.org/en/universal.html). In short, make sure to only access Browser / DOM APIs in `beforeMount` or `mounted` hooks.
+- 方法1：重写localStorage.setItem()方法
+  ```javascript
+  const oldSetItem = window.localStorage.setItem
+  window.localStorage.setItem = function(key, newValue) {
+    if (key === '你要监听的key') {
+      // do something
+    }
+    oldSetItem(key, newValue)
+  }
+  ```
+  
+- 方法2：封装原生localStorage的api,生成自己的自定义功能
+  ```javascript
+  var myStorage = {
+    setItem(key, val, ...rest){
+      // do something
+      window.localStorage.setItem(key,val)
+    }
+    getItem(key,..rest){
+      // do something
+      return window.localStorage. getItem(key)
+    }
+    // ...其他方法
+  }
+  export default myStorage
+  ```
+- 方法3：监听localStorage时间
+  ```javascript
+  // 重写setItem方法
+  const oldSetItem = window.localStorage.setItem
+  window.localStorage.setItem = function(key, newValue) {
+    var setItemEvent = new Event("setItemEvent")
+    setItemEvent.key = key
+    setItemEvent.newValue = newValue
+    window.dispatchEvent(setItemEvent)
+    oldSetItem.apply(this, arguments)
+  }
+  // 添加监听事件
+  window.addEventListener("setItemEvent", function(e) {
+    // do something
+  })
+  ```
 
-If you are using or demoing components that are not SSR friendly (for example containing custom directives), you can wrap them inside the built-in `<ClientOnly>` component:
+## 不同页面监听localStorage变动
 
-##
+```javascript
+window.addEventListener("storage", function (e) {
+  if (e.key === '你要监听的key') {
+    // do something
+    console.log(e.newValue)
+  }
+})
+```
+
+## 参考链接
+
+- [localStorage单页面及不同页面监听变动](https://blog.csdn.net/qq_42076140/article/details/80307326)
+- [vue 怎么监听localStorage值得变化](https://segmentfault.com/q/1010000015906159)
+- [vuex持久化插件](https://github.com/robinvdvleuten/vuex-persistedstate)

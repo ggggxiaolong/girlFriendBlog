@@ -1,3 +1,16 @@
+---
+title: 烤鸭的做法
+date: 2019-08-08
+sidebar: 'auto'
+categories:
+ - 烹饪
+ - 爱好
+tags:
+ - 烤
+ - 鸭子
+---
+
+
 # Introduction
 
 VuePress is composed of two parts: a [minimalistic static site generator](https://github.com/vuejs/vuepress/tree/master/packages/%40vuepress/core) with a Vue-powered [theming system](https://v1.vuepress.vuejs.org/theme/) and [Plugin API](https://v1.vuepress.vuejs.org/plugin/), and a [default theme](https://v1.vuepress.vuejs.org/theme/default-theme-config.html) optimized for writing technical documentation. It was created to support the documentation needs of Vue's own sub projects.
